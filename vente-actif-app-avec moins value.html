@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Arte della Contabilità - Vente d'Actif Immobilisé (Hypothèse 2)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #c9a227;
+            --gold-light: #e8d5a3;
+            --gold-dark: #8b7355;
+            --parchment: #f4e4bc;
+            --parchment-dark: #d4c4a8;
+            --ink: #2c1810;
+            --ink-light: #5c4033;
+            --sepia: #704214;
+            --red-ink: #8b0000;
+            --green-ink: #006400;
+            --shadow: rgba(44, 24, 16, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'EB Garamond', serif;
+            background: linear-gradient(135deg, #d4c4a8 0%, #f4e4bc 50%, #d4c4a8 100%);
+            min-height: 100vh;
+            color: var(--ink);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header Style Renaissance */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(180deg, rgba(201, 162, 39, 0.1) 0%, transparent 100%);
+            border-bottom: 3px double var(--gold);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        header::before, header::after {
+            content: '✦';
+            font-size: 24px;
+            color: var(--gold);
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        header::before { left: 20px; }
+        header::after { right: 20px; }
+
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--sepia);
+            text-shadow: 2px 2px 4px var(--shadow);
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--ink-light);
+            letter-spacing: 0.05em;
+        }
+
+        .hypothesis-badge {
+            display: inline-block;
+            background: linear-gradient(180deg, var(--red-ink) 0%, #5c0000 100%);
+            color: #fff;
+            padding: 8px 25px;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            margin-top: 15px;
+            border-radius: 3px;
+            box-shadow: 0 3px 10px var(--shadow);
+        }
+
+        .da-vinci-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--gold-dark);
+            margin-top: 15px;
+            padding: 10px 30px;
+            border-left: 2px solid var(--gold);
+            border-right: 2px solid var(--gold);
+            display: inline-block;
+        }
+
+        /* Navigation Niveaux */
+        .nav-levels {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(90deg, transparent 0%, rgba(201, 162, 39, 0.1) 50%, transparent 100%);
+        }
+
+        .nav-btn {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            padding: 15px 30px;
+            border: 2px solid var(--gold);
+            background: linear-gradient(180deg, var(--parchment) 0%, var(--parchment-dark) 100%);
+            color: var(--sepia);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+            color: var(--ink);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .nav-btn.active {
+            border-width: 3px;
+        }
+
+        /* Panels */
+        .level-panel {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .level-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards Style Parchemin */
+        .card {
+            background: linear-gradient(135deg, #f9f3e3 0%, var(--parchment) 50%, #f9f3e3 100%);
+            border: 2px solid var(--gold-dark);
+            border-radius: 5px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 
+                0 5px 20px var(--shadow),
+                inset 0 0 50px rgba(201, 162, 39, 0.05);
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid var(--gold-light);
+            pointer-events: none;
+        }
+
+        .card-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--sepia);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .card-title .icon {
+            font-size: 1.8rem;
+        }
+
+        /* Tables Renaissance */
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid var(--gold-dark);
+        }
+
+        th {
+            background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            color: var(--ink);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        tr:nth-child(even) td {
+            background: rgba(201, 162, 39, 0.1);
+        }
+
+        .amount {
+            font-family: 'EB Garamond', serif;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .debit { color: var(--red-ink); }
+        .credit { color: var(--green-ink); }
+
+        /* Facture Style */
+        .invoice {
+            background: #fff;
+            border: 3px double var(--gold);
+            padding: 40px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .invoice::before {
+            content: 'FACTURE';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--parchment);
+            padding: 5px 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--sepia);
+            border: 2px solid var(--gold);
+        }
+
+        .invoice-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gold-light);
+        }
+
+        .invoice-company {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: var(--sepia);
+            margin-bottom: 10px;
+        }
+
+        .invoice-details {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .invoice-number {
+            text-align: right;
+            font-family: 'Cinzel', serif;
+        }
+
+        .invoice-total {
+            background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+            padding: 20px;
+            text-align: right;
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--ink);
+            margin-top: 20px;
+        }
+
+        /* Input Fields */
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .input-group label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            min-width: 200px;
+            color: var(--ink-light);
+        }
+
+        .input-field {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px 15px;
+            border: 2px solid var(--gold-dark);
+            background: rgba(255, 255, 255, 0.8);
+            font-family: 'EB Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--ink);
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(201, 162, 39, 0.3);
+            background: #fff;
+        }
+
+        .input-field.correct {
+            border-color: var(--green-ink);
+            background: rgba(0, 100, 0, 0.05);
+        }
+
+        .input-field.incorrect {
+            border-color: var(--red-ink);
+            background: rgba(139, 0, 0, 0.05);
+        }
+
+        .unit {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--ink-light);
+        }
+
+        /* Buttons */
+        .btn {
+            font-family: 'Cinzel', serif;
+            padding: 12px 30px;
+            border: 2px solid var(--gold);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            margin: 10px 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+            color: var(--ink);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--sepia);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(201, 162, 39, 0.2);
+        }
+
+        .btn-reveal {
+            background: linear-gradient(180deg, #e8d5a3 0%, #c9a227 100%);
+            color: var(--ink);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-reveal::after {
+            content: '👁️';
+            margin-left: 10px;
+        }
+
+        /* Result Display */
+        .result-display {
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.1) 0%, rgba(201, 162, 39, 0.2) 100%);
+            border: 2px solid var(--gold);
+            padding: 20px 30px;
+            margin: 20px 0;
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        .result-positive {
+            color: var(--green-ink);
+            border-color: var(--green-ink);
+            background: linear-gradient(135deg, rgba(0, 100, 0, 0.05) 0%, rgba(0, 100, 0, 0.1) 100%);
+        }
+
+        .result-negative {
+            color: var(--red-ink);
+            border-color: var(--red-ink);
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.05) 0%, rgba(139, 0, 0, 0.1) 100%);
+        }
+
+        /* Etapes Indicator */
+        .steps-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .step-dot {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid var(--gold-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            background: var(--parchment);
+            transition: all 0.3s ease;
+        }
+
+        .step-dot.active .step-number,
+        .step-dot.completed .step-number {
+            background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+            border-color: var(--gold);
+        }
+
+        .step-dot.completed .step-number::after {
+            content: '✓';
+            color: var(--green-ink);
+        }
+
+        .step-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            color: var(--ink-light);
+            text-align: center;
+            max-width: 100px;
+        }
+
+        /* Journal Entries */
+        .journal-entry {
+            margin: 20px 0;
+        }
+
+        .journal-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, var(--gold-light), var(--gold), var(--gold-light));
+            font-family: 'Cinzel', serif;
+            margin-bottom: 0;
+        }
+
+        .journal-table {
+            margin-top: 0;
+        }
+
+        .journal-table input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--gold-dark);
+            background: rgba(255, 255, 255, 0.9);
+            font-family: 'EB Garamond', serif;
+            font-size: 1rem;
+        }
+
+        /* Accordion for reference */
+        .accordion {
+            margin: 20px 0;
+        }
+
+        .accordion-header {
+            background: linear-gradient(180deg, var(--parchment-dark) 0%, var(--parchment) 100%);
+            padding: 15px 20px;
+            border: 2px solid var(--gold-dark);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Cinzel', serif;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(180deg, var(--gold-light) 0%, var(--parchment-dark) 100%);
+        }
+
+        .accordion-header .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            display: none;
+            border: 2px solid var(--gold-dark);
+            border-top: none;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .accordion-content.open {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Feedback Messages */
+        .feedback {
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            display: none;
+        }
+
+        .feedback.success {
+            background: rgba(0, 100, 0, 0.1);
+            border: 2px solid var(--green-ink);
+            color: var(--green-ink);
+            display: block;
+        }
+
+        .feedback.error {
+            background: rgba(139, 0, 0, 0.1);
+            border: 2px solid var(--red-ink);
+            color: var(--red-ink);
+            display: block;
+        }
+
+        /* Decorative Elements */
+        .decorative-line {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 30px 0;
+        }
+
+        .fleur-de-lis {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 20px 0;
+        }
+
+        /* Alert box for loss */
+        .alert-loss {
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.1) 0%, rgba(139, 0, 0, 0.15) 100%);
+            border: 2px solid var(--red-ink);
+            border-left: 5px solid var(--red-ink);
+            padding: 15px 20px;
+            margin: 15px 0;
+            color: var(--red-ink);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-title { font-size: 1.8rem; }
+            .card { padding: 20px; }
+            .invoice { padding: 20px; }
+            .invoice-header { grid-template-columns: 1fr; }
+            .input-group { flex-direction: column; align-items: stretch; }
+            .input-group label { min-width: auto; }
+            th, td { padding: 8px 10px; font-size: 0.9rem; }
+        }
+
+        /* Highlight animation */
+        .highlight {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.4); }
+            50% { box-shadow: 0 0 20px 5px rgba(201, 162, 39, 0.6); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="main-title">L'Arte della Contabilità</h1>
+            <p class="subtitle">La Vente d'Actif Immobilisé</p>
+            <div class="hypothesis-badge">⚠️ HYPOTHÈSE 2 — MOINS-VALUE</div>
+            <p class="da-vinci-quote">"L'expérience ne se trompe jamais ; ce sont vos jugements qui se trompent" — Leonardo da Vinci</p>
+        </header>
+
+        <nav class="nav-levels">
+            <button class="nav-btn active" onclick="showLevel(1)">📜 Niveau I<br><small>L'Énoncé</small></button>
+            <button class="nav-btn" onclick="showLevel(2)">📋 Niveau II<br><small>La Facture</small></button>
+            <button class="nav-btn" onclick="showLevel(3)">✍️ Niveau III<br><small>Les Étapes</small></button>
+            <button class="nav-btn" onclick="showLevel(4)">📖 Niveau IV<br><small>L'Écriture</small></button>
+        </nav>
+
+        <!-- NIVEAU 1: L'Énoncé -->
+        <section id="level1" class="level-panel active">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📜</span> Énoncé de l'Exercice</h2>
+                <div style="font-size: 1.15rem; line-height: 1.8;">
+                    <p>Vous réalisez l'achat d'un <strong>camion</strong> d'une valeur de <strong>500.000 €</strong> le <strong>31/08/2025</strong> (TVA 21%).</p>
+                    <br>
+                    <p><strong>Questions :</strong></p>
+                    <p>a) Comptabilisez l'achat du camion.</p>
+                    <p>b) Établissez le tableau d'amortissement et comptabilisez les amortissements. <br>
+                       <em>Durée de vie estimée : 5 ans en linéaire.</em></p>
+                    <br>
+                    <p>Le <strong>01/02/2027</strong>, vous vendez votre camion pour une valeur de :</p>
+                    <div class="result-display result-negative" style="margin: 20px 0;">
+                        <strong>Hypothèse 2 : 250.000 € HTVA</strong><br>
+                        <small>(Prix de vente inférieur à la valeur comptable)</small>
+                    </div>
+                    <p>c) Comptabilisez la vente de votre véhicule.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📝</span> Écriture d'Achat du Camion</h2>
+                <div class="journal-entry">
+                    <div class="journal-header">
+                        <span>Journal : JA</span>
+                        <span>Date : 31/08/2025</span>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Compte</th>
+                                    <th>Libellé</th>
+                                    <th>Débit (€)</th>
+                                    <th>Crédit (€)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2410</td>
+                                    <td>Camion</td>
+                                    <td class="amount debit">500.000,00</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>4110</td>
+                                    <td>TVA à récupérer</td>
+                                    <td class="amount debit">105.000,00</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>4400</td>
+                                    <td>Fournisseur</td>
+                                    <td></td>
+                                    <td class="amount credit">605.000,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📊</span> Tableau d'Amortissement</h2>
+                <p style="margin-bottom: 15px; font-style: italic; color: var(--ink-light);">
+                    Amortissement linéaire sur 5 ans : 500.000 / 5 = <strong>100.000 €/an</strong><br>
+                    <strong>1ère année :</strong> Prorata temporis du 31/08 au 31/12 = 122 jours<br>
+                    Calcul : 100.000 × 122 / 365 = <strong>33.424,66 €</strong>
+                </p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Année</th>
+                                <th>Valeur d'acquisition</th>
+                                <th>Amortissement</th>
+                                <th>VCN (Valeur Comptable Nette)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2025</td>
+                                <td class="amount">500.000,00</td>
+                                <td class="amount">33.424,66</td>
+                                <td class="amount"><strong>466.575,34</strong></td>
+                            </tr>
+                            <tr>
+                                <td>2026</td>
+                                <td class="amount">500.000,00</td>
+                                <td class="amount">100.000,00</td>
+                                <td class="amount"><strong>366.575,34</strong></td>
+                            </tr>
+                            <tr style="background: rgba(139, 0, 0, 0.1);">
+                                <td>2027</td>
+                                <td class="amount">500.000,00</td>
+                                <td class="amount">100.000,00</td>
+                                <td class="amount"><strong>266.575,34</strong></td>
+                            </tr>
+                            <tr>
+                                <td>2028</td>
+                                <td class="amount">500.000,00</td>
+                                <td class="amount">100.000,00</td>
+                                <td class="amount"><strong>166.575,34</strong></td>
+                            </tr>
+                            <tr>
+                                <td>2029</td>
+                                <td class="amount">500.000,00</td>
+                                <td class="amount">100.000,00</td>
+                                <td class="amount"><strong>66.575,34</strong></td>
+                            </tr>
+                            <tr>
+                                <td>2030</td>
+                                <td class="amount">500.000,00</td>
+                                <td class="amount">66.575,34</td>
+                                <td class="amount"><strong>0,00</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📖</span> Écritures d'Amortissement Comptabilisées</h2>
+                
+                <div class="journal-entry">
+                    <div class="journal-header">
+                        <span>Journal : JOD</span>
+                        <span>Date : 31/12/2025</span>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Compte</th>
+                                    <th>Libellé</th>
+                                    <th>Débit (€)</th>
+                                    <th>Crédit (€)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>6302</td>
+                                    <td>Dotation d'amortissement s/IC</td>
+                                    <td class="amount debit">33.424,66</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>2419</td>
+                                    <td>Amortissements actés sur camion</td>
+                                    <td></td>
+                                    <td class="amount credit">33.424,66</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="journal-entry" style="margin-top: 25px;">
+                    <div class="journal-header">
+                        <span>Journal : JOD</span>
+                        <span>Date : 31/12/2026</span>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Compte</th>
+                                    <th>Libellé</th>
+                                    <th>Débit (€)</th>
+                                    <th>Crédit (€)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>6302</td>
+                                    <td>Dotation d'amortissement s/IC</td>
+                                    <td class="amount debit">100.000,00</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>2419</td>
+                                    <td>Amortissements actés sur camion</td>
+                                    <td></td>
+                                    <td class="amount credit">100.000,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="fleur-de-lis">⚜</div>
+            </div>
+        </section>
+
+        <!-- NIVEAU 2: La Facture -->
+        <section id="level2" class="level-panel">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📋</span> Facture de Vente du Camion</h2>
+                
+                <div class="alert-loss">
+                    ⚠️ <strong>Attention :</strong> Dans cette hypothèse, le prix de vente (250.000 €) est inférieur à la valeur comptable nette du bien. Cela génère une <strong>moins-value de réalisation</strong> (perte).
+                </div>
+                
+                <div class="invoice">
+                    <div class="invoice-header">
+                        <div>
+                            <p class="invoice-company">VOTRE ENTREPRISE SRL</p>
+                            <div class="invoice-details">
+                                Rue de l'Industrie, 45<br>
+                                6000 Charleroi<br>
+                                TVA : BE 0123.456.789
+                            </div>
+                        </div>
+                        <div class="invoice-number">
+                            <p style="font-size: 1.5rem; margin-bottom: 10px;">FACTURE</p>
+                            <p><strong>N° :</strong> 2027/VT/001</p>
+                            <p><strong>Date :</strong> 01/02/2027</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <p style="font-weight: 600; margin-bottom: 10px;">FACTURÉ À :</p>
+                        <div class="invoice-details">
+                            <strong>TRANSPORT EXPRESS SA</strong><br>
+                            Avenue du Commerce, 128<br>
+                            7000 Mons<br>
+                            TVA : BE 0987.654.321
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Détails</th>
+                                    <th style="text-align: right;">Montant (€)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="3" style="background: var(--parchment-dark); font-weight: 600;">
+                                        VENTE DE VÉHICULE - ACTIF IMMOBILISÉ
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Camion</strong></td>
+                                    <td>
+                                        Véhicule utilitaire<br>
+                                        <small>Acquisition : 31/08/2025</small><br>
+                                        <small>Immatriculation : 1-ABC-123</small>
+                                    </td>
+                                    <td class="amount">250.000,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="margin-top: 30px; text-align: right;">
+                        <table style="width: auto; margin-left: auto;">
+                            <tr>
+                                <td style="text-align: right; padding-right: 30px;"><strong>Montant HTVA :</strong></td>
+                                <td class="amount" style="min-width: 150px;">250.000,00 €</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right; padding-right: 30px;"><strong>TVA 21% :</strong></td>
+                                <td class="amount">52.500,00 €</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="invoice-total">
+                        TOTAL TVAC : 302.500,00 €
+                    </div>
+
+                    <div style="margin-top: 30px; font-size: 0.9rem; color: var(--ink-light);">
+                        <p><strong>Conditions de paiement :</strong> 30 jours fin de mois</p>
+                        <p><strong>IBAN :</strong> BE12 3456 7890 1234</p>
+                        <p style="margin-top: 15px; font-style: italic;">
+                            ⚠️ Cette vente concerne un bien d'investissement. 
+                            Elle ne peut pas être comptabilisée comme une vente classique de marchandise ou de service.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordéon pour voir le niveau 1 -->
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>📜 Consulter le Niveau I - L'Énoncé et le Tableau d'Amortissement</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content" id="accordion-level1">
+                    <p style="margin-bottom: 15px;"><strong>Rappel de l'énoncé :</strong></p>
+                    <p>Achat camion le 31/08/2025 : 500.000 € HTVA (TVA 21%)</p>
+                    <p style="color: var(--red-ink);"><strong>Vente le 01/02/2027 : 250.000 € HTVA (Hypothèse 2)</strong></p>
+                    <p>Amortissement linéaire sur 5 ans</p>
+                    <div class="decorative-line"></div>
+                    <p><strong>Amortissements déjà comptabilisés :</strong></p>
+                    <p>• 2025 : 33.424,66 € (prorata temporis)</p>
+                    <p>• 2026 : 100.000,00 €</p>
+                    <p><strong>Total au 31/12/2026 : 133.424,66 €</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- NIVEAU 3: Les Étapes -->
+        <section id="level3" class="level-panel">
+            <div class="steps-indicator">
+                <div class="step-dot active" onclick="showStep(1)">
+                    <div class="step-number">1</div>
+                    <span class="step-label">Éléments de la facture</span>
+                </div>
+                <div class="step-dot" onclick="showStep(2)">
+                    <div class="step-number">2</div>
+                    <span class="step-label">VCN & Dernier amort.</span>
+                </div>
+                <div class="step-dot" onclick="showStep(3)">
+                    <div class="step-number">3</div>
+                    <span class="step-label">Résultat de vente</span>
+                </div>
+            </div>
+
+            <!-- Étape 1 -->
+            <div id="step1" class="step-content">
+                <div class="card">
+                    <h2 class="card-title"><span class="icon">1️⃣</span> Étape 1 : Déterminer les éléments de la facture de vente</h2>
+                    <p style="margin-bottom: 20px; color: var(--ink-light); font-style: italic;">
+                        Complétez les montants de la facture de vente. Le prix de vente est de <strong style="color: var(--red-ink);">250.000 € HTVA</strong>.
+                    </p>
+
+                    <div class="input-group">
+                        <label for="step1-htva">Montant HTVA :</label>
+                        <input type="text" id="step1-htva" class="input-field" placeholder="Entrez le montant...">
+                        <span class="unit">€</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="step1-tva">Montant TVA (21%) :</label>
+                        <input type="text" id="step1-tva" class="input-field" placeholder="Entrez le montant...">
+                        <span class="unit">€</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="step1-tvac">Montant TVAC :</label>
+                        <input type="text" id="step1-tvac" class="input-field" placeholder="Entrez le montant...">
+                        <span class="unit">€</span>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="checkStep1()">✓ Vérifier mes réponses</button>
+                        <button class="btn btn-reveal" onclick="revealStep1()">Voir les réponses</button>
+                    </div>
+
+                    <div id="feedback-step1" class="feedback"></div>
+
+                    <div id="result-step1" style="display: none;" class="result-display">
+                        <p><strong>Récapitulatif :</strong></p>
+                        <p>250.000,00 € HTVA</p>
+                        <p style="border-bottom: 1px solid var(--gold); display: inline-block;">+ 52.500,00 € TVA</p>
+                        <p style="font-size: 1.5rem; margin-top: 10px;"><strong>= 302.500,00 € TVAC</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Étape 2 -->
+            <div id="step2" class="step-content" style="display: none;">
+                <div class="card">
+                    <h2 class="card-title"><span class="icon">2️⃣</span> Étape 2 : Déterminer la Valeur Comptable Nette (VCN)</h2>
+                    <p style="margin-bottom: 20px; color: var(--ink-light); font-style: italic;">
+                        Calculez la VCN au jour de la vente (01/02/2027). N'oubliez pas l'amortissement de l'année 2027 !<br>
+                        <strong>Attention :</strong> On ne prend pas le jour de la vente. Janvier 2027 = 31 jours.
+                    </p>
+
+                    <div class="input-group">
+                        <label for="step2-val-acq">Valeur d'acquisition :</label>
+                        <input type="text" id="step2-val-acq" class="input-field" placeholder="Entrez le montant...">
+                        <span class="unit">€</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="step2-amort-2025">Amortissement 2025 :</label>
+                        <input type="text" id="step2-amort-2025" class="input-field" placeholder="Entrez le montant...">
+                        <span class="unit">€</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="step2-amort-2026">Amortissement 2026 :</label>
+                        <input type="text" id="step2-amort-2026" class="input-field" placeholder="Entrez le montant...">
+                        <span class="unit">€</span>
+                    </div>
+
+                    <div class="input-group highlight">
+                        <label for="step2-amort-2027">Amortissement 2027 (prorata) :</label>
+                        <input type="text" id="step2-amort-2027" class="input-field" placeholder="31 jours de janvier...">
+                        <span class="unit">€</span>
+                    </div>
+
+                    <p style="font-size: 0.9rem; color: var(--ink-light); margin: 10px 0;">
+                        💡 Calcul prorata 2027 : 100.000 × 31 / 365 = ?
+                    </p>
+
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="checkStep2()">✓ Vérifier mes réponses</button>
+                        <button class="btn btn-reveal" onclick="revealStep2()">Voir les réponses</button>
+                    </div>
+
+                    <div id="feedback-step2" class="feedback"></div>
+
+                    <div id="result-step2" style="display: none;">
+                        <div class="result-display">
+                            <p><strong>Calcul de la VCN au 01/02/2027 :</strong></p>
+                            <p>Valeur d'acquisition : 500.000,00 €</p>
+                            <p>- Amort. 2025 : 33.424,66 €</p>
+                            <p>- Amort. 2026 : 100.000,00 €</p>
+                            <p style="border-bottom: 1px solid var(--gold); display: inline-block;">- Amort. 2027 : 8.493,15 €</p>
+                            <p style="font-size: 1.3rem; margin-top: 10px;">Total amortissements : <strong>141.917,81 €</strong></p>
+                            <p style="font-size: 1.5rem; margin-top: 10px; color: var(--sepia);"><strong>VCN = 358.082,19 €</strong></p>
+                        </div>
+
+                        <div class="alert-loss" style="margin-top: 15px;">
+                            ⚠️ <strong>Observation importante :</strong> La VCN (358.082,19 €) est <strong>supérieure</strong> au prix de vente (250.000 €). Cela signifie que nous allons réaliser une <strong>PERTE</strong> sur cette vente !
+                        </div>
+
+                        <div class="card" style="margin-top: 20px;">
+                            <h3 style="font-family: 'Cinzel', serif; margin-bottom: 15px;">📝 Dernière écriture d'amortissement à passer</h3>
+                            <div class="journal-entry">
+                                <div class="journal-header">
+                                    <span>Journal : JOD</span>
+                                    <span>Date : 01/02/2027</span>
+                                </div>
+                                <div class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Compte</th>
+                                                <th>Libellé</th>
+                                                <th>Débit (€)</th>
+                                                <th>Crédit (€)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>6302</td>
+                                                <td>Dotation d'amortissement s/IC</td>
+                                                <td class="amount debit">8.493,15</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2419</td>
+                                                <td>Amortissements actés sur camion</td>
+                                                <td></td>
+                                                <td class="amount credit">8.493,15</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Étape 3 -->
+            <div id="step3" class="step-content" style="display: none;">
+                <div class="card">
+                    <h2 class="card-title"><span class="icon">3️⃣</span> Étape 3 : Déterminer le résultat de la vente</h2>
+                    <p style="margin-bottom: 20px; color: var(--ink-light); font-style: italic;">
+                        Comparez le prix de vente avec la VCN pour déterminer s'il y a une plus-value ou une moins-value.
+                    </p>
+
+                    <div class="input-group">
+                        <label for="step3-pv">Prix de Vente (HTVA) :</label>
+                        <input type="text" id="step3-pv" class="input-field" placeholder="Entrez le montant...">
+                        <span class="unit">€</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="step3-vcn">Valeur Comptable Nette :</label>
+                        <input type="text" id="step3-vcn" class="input-field" placeholder="Entrez le montant...">
+                        <span class="unit">€</span>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="checkStep3()">✓ Vérifier mes réponses</button>
+                        <button class="btn btn-reveal" onclick="revealStep3()">Voir les réponses</button>
+                    </div>
+
+                    <div id="feedback-step3" class="feedback"></div>
+
+                    <div id="result-step3" style="display: none;">
+                        <div class="result-display result-negative">
+                            <p><strong>Calcul du résultat :</strong></p>
+                            <p>Prix de Vente : 250.000,00 €</p>
+                            <p style="border-bottom: 1px solid var(--red-ink); display: inline-block;">- VCN : 358.082,19 €</p>
+                            <p style="font-size: 1.8rem; margin-top: 15px;">
+                                <strong>= - 108.082,19 €</strong>
+                            </p>
+                            <p style="font-size: 1.3rem; margin-top: 10px;">
+                                📉 <strong>MOINS-VALUE DE RÉALISATION</strong><br>
+                                <small>(Soit une PERTE sur la vente du camion !)</small>
+                            </p>
+                        </div>
+
+                        <div class="alert-loss">
+                            <strong>💡 Explication :</strong> Nous avons vendu le camion à un prix inférieur à sa valeur comptable. 
+                            Le camion "valait" encore 358.082,19 € dans nos comptes, mais nous ne l'avons vendu que 250.000 €. 
+                            La différence (108.082,19 €) représente une perte pour l'entreprise.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordéons de référence -->
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>📜 Consulter le Niveau I - Tableau d'Amortissement</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Année</th>
+                                    <th>Amortissement</th>
+                                    <th>VCN</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>2025</td><td>33.424,66 €</td><td>466.575,34 €</td></tr>
+                                <tr><td>2026</td><td>100.000,00 €</td><td>366.575,34 €</td></tr>
+                                <tr style="background: rgba(139, 0, 0, 0.2);"><td>2027</td><td>8.493,15 € (prorata)</td><td>358.082,19 €</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>📋 Consulter le Niveau II - Facture de Vente</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Facture N° 2027/VT/001</strong> - Date : 01/02/2027</p>
+                    <p>Vente du camion :</p>
+                    <p>• HTVA : 250.000,00 €</p>
+                    <p>• TVA 21% : 52.500,00 €</p>
+                    <p>• <strong>TVAC : 302.500,00 €</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- NIVEAU 4: L'Écriture -->
+        <section id="level4" class="level-panel">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📖</span> Niveau IV : Comptabiliser l'écriture de vente</h2>
+                <p style="margin-bottom: 20px; color: var(--ink-light); font-style: italic;">
+                    Complétez l'écriture de vente dans le Journal des Opérations Diverses.<br>
+                    <strong>Rappel :</strong> Les débits = Les crédits<br>
+                    <strong style="color: var(--red-ink);">⚠️ Attention : Il s'agit d'une MOINS-VALUE (compte 6630, pas 7630)</strong>
+                </p>
+
+                <div class="journal-entry">
+                    <div class="journal-header">
+                        <span>Journal : JV (Ventes)</span>
+                        <span>Date : 01/02/2027</span>
+                    </div>
+                    <div class="table-container">
+                        <table class="journal-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 15%;">Compte</th>
+                                    <th style="width: 35%;">Libellé</th>
+                                    <th style="width: 25%;">Débit (€)</th>
+                                    <th style="width: 25%;">Crédit (€)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" id="j-compte1" placeholder="N° compte"></td>
+                                    <td><input type="text" id="j-libelle1" placeholder="Libellé"></td>
+                                    <td><input type="text" id="j-debit1" placeholder="Débit"></td>
+                                    <td><input type="text" id="j-credit1" placeholder="Crédit"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" id="j-compte2" placeholder="N° compte"></td>
+                                    <td><input type="text" id="j-libelle2" placeholder="Libellé"></td>
+                                    <td><input type="text" id="j-debit2" placeholder="Débit"></td>
+                                    <td><input type="text" id="j-credit2" placeholder="Crédit"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" id="j-compte3" placeholder="N° compte"></td>
+                                    <td><input type="text" id="j-libelle3" placeholder="Libellé"></td>
+                                    <td><input type="text" id="j-debit3" placeholder="Débit"></td>
+                                    <td><input type="text" id="j-credit3" placeholder="Crédit"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" id="j-compte4" placeholder="N° compte"></td>
+                                    <td><input type="text" id="j-libelle4" placeholder="Libellé"></td>
+                                    <td><input type="text" id="j-debit4" placeholder="Débit"></td>
+                                    <td><input type="text" id="j-credit4" placeholder="Crédit"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" id="j-compte5" placeholder="N° compte"></td>
+                                    <td><input type="text" id="j-libelle5" placeholder="Libellé"></td>
+                                    <td><input type="text" id="j-debit5" placeholder="Débit"></td>
+                                    <td><input type="text" id="j-credit5" placeholder="Crédit"></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr style="background: var(--gold-light);">
+                                    <td colspan="2" style="text-align: right; font-weight: bold;">TOTAUX :</td>
+                                    <td id="total-debit" class="amount" style="font-weight: bold;">0,00</td>
+                                    <td id="total-credit" class="amount" style="font-weight: bold;">0,00</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="calculateTotals()">🔢 Calculer les totaux</button>
+                    <button class="btn btn-primary" onclick="checkJournal()">✓ Vérifier mon écriture</button>
+                    <button class="btn btn-reveal" onclick="revealJournal()">Voir la correction</button>
+                </div>
+
+                <div id="feedback-journal" class="feedback"></div>
+            </div>
+
+            <!-- Correction -->
+            <div id="correction-journal" class="card" style="display: none;">
+                <h2 class="card-title"><span class="icon">✅</span> Correction - Écriture de Vente (Moins-value)</h2>
+                
+                <div class="journal-entry">
+                    <div class="journal-header">
+                        <span>Journal : JV</span>
+                        <span>Date : 01/02/2027</span>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Compte</th>
+                                    <th>Libellé</th>
+                                    <th>Débit (€)</th>
+                                    <th>Crédit (€)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>4000</strong></td>
+                                    <td>Client</td>
+                                    <td class="amount debit"><strong>302.500,00</strong></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>4510</strong></td>
+                                    <td>TVA à payer</td>
+                                    <td></td>
+                                    <td class="amount credit"><strong>52.500,00</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>2410</strong></td>
+                                    <td>Camion</td>
+                                    <td></td>
+                                    <td class="amount credit"><strong>500.000,00</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>2419</strong></td>
+                                    <td>Amortissements actés s/camion</td>
+                                    <td class="amount debit"><strong>141.917,81</strong></td>
+                                    <td></td>
+                                </tr>
+                                <tr style="background: rgba(139, 0, 0, 0.1);">
+                                    <td><strong style="color: var(--red-ink);">6630</strong></td>
+                                    <td><strong style="color: var(--red-ink);">Moins-value de réalisation</strong></td>
+                                    <td class="amount debit"><strong style="color: var(--red-ink);">108.082,19</strong></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr style="background: var(--gold-light);">
+                                    <td colspan="2" style="text-align: right; font-weight: bold;">TOTAUX :</td>
+                                    <td class="amount" style="font-weight: bold;">552.500,00</td>
+                                    <td class="amount" style="font-weight: bold;">552.500,00</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px; padding: 20px; background: rgba(139, 0, 0, 0.1); border: 2px solid var(--red-ink);">
+                    <h3 style="font-family: 'Cinzel', serif; color: var(--red-ink); margin-bottom: 15px;">📚 Explication de l'écriture (MOINS-VALUE)</h3>
+                    <p><strong>DÉBITS :</strong></p>
+                    <p>• <strong>4000 Client</strong> : Montant TVAC de la facture (302.500 €) - C'est notre créance</p>
+                    <p>• <strong>2419 Amort. actés</strong> : On "vide" le compte des amortissements (141.917,81 €)</p>
+                    <p>• <strong style="color: var(--red-ink);">6630 Moins-value</strong> : La perte réalisée sur la vente (108.082,19 €) — <em>C'est une CHARGE !</em></p>
+                    <br>
+                    <p><strong>CRÉDITS :</strong></p>
+                    <p>• <strong>4510 TVA à payer</strong> : TVA collectée sur la vente (52.500 €)</p>
+                    <p>• <strong>2410 Camion</strong> : On "sort" le bien de notre patrimoine à sa valeur d'origine (500.000 €)</p>
+                    <br>
+                    <div class="alert-loss">
+                        <strong>⚠️ Différence avec l'hypothèse 1 :</strong><br>
+                        Dans l'hypothèse 1 (prix de vente 400.000 €), nous avions une <strong>plus-value</strong> (compte 7630 au crédit).<br>
+                        Dans l'hypothèse 2 (prix de vente 250.000 €), nous avons une <strong>moins-value</strong> (compte 6630 au débit).
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordéons de référence -->
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>📊 Récapitulatif des 3 étapes</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Étape 1 - Facture :</strong></p>
+                    <p>HTVA : 250.000 € | TVA : 52.500 € | TVAC : 302.500 €</p>
+                    <div class="decorative-line"></div>
+                    <p><strong>Étape 2 - VCN au 01/02/2027 :</strong></p>
+                    <p>Val. acquisition : 500.000 € - Amortissements : 141.917,81 € = <strong>VCN : 358.082,19 €</strong></p>
+                    <div class="decorative-line"></div>
+                    <p><strong>Étape 3 - Résultat :</strong></p>
+                    <p style="color: var(--red-ink);">PV (250.000) - VCN (358.082,19) = <strong>Moins-value : -108.082,19 €</strong></p>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>📖 Aide-mémoire : Comptes à utiliser</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <table>
+                        <tr><td><strong>2410</strong></td><td>Matériel roulant (Camion)</td></tr>
+                        <tr><td><strong>2419</strong></td><td>Amortissements actés sur matériel roulant</td></tr>
+                        <tr><td><strong>4000</strong></td><td>Clients</td></tr>
+                        <tr><td><strong>4510</strong></td><td>TVA à payer</td></tr>
+                        <tr style="background: rgba(139, 0, 0, 0.15);"><td><strong style="color: var(--red-ink);">6630</strong></td><td><strong style="color: var(--red-ink);">Moins-value de réalisation (PERTE) — AU DÉBIT</strong></td></tr>
+                        <tr><td><strong>7630</strong></td><td>Plus-value de réalisation (profit) — Au crédit</td></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <footer style="text-align: center; padding: 40px 20px; margin-top: 40px; border-top: 3px double var(--gold);">
+            <div class="fleur-de-lis">⚜</div>
+            <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--ink-light);">
+                "Les obstacles ne peuvent pas t'arrêter. Les problèmes ne peuvent pas t'arrêter. 
+                Les gens ne peuvent pas t'arrêter. Seul toi peux t'arrêter."
+            </p>
+            <p style="font-size: 0.9rem; color: var(--gold-dark); margin-top: 15px;">
+                Application pédagogique — Comptabilité 6ᵉ année secondaire technique<br>
+                <strong style="color: var(--red-ink);">Hypothèse 2 : Moins-value de réalisation</strong>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Valeurs correctes pour HYPOTHÈSE 2
+        const CORRECT_VALUES = {
+            step1: {
+                htva: 250000,
+                tva: 52500,
+                tvac: 302500
+            },
+            step2: {
+                valAcq: 500000,
+                amort2025: 33424.66,
+                amort2026: 100000,
+                amort2027: 8493.15,
+                vcn: 358082.19
+            },
+            step3: {
+                pv: 250000,
+                vcn: 358082.19,
+                resultat: -108082.19
+            },
+            journal: {
+                totalDebit: 552500,
+                totalCredit: 552500
+            }
+        };
+
+        // Navigation entre niveaux
+        function showLevel(level) {
+            document.querySelectorAll('.level-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById('level' + level).classList.add('active');
+            document.querySelectorAll('.nav-btn')[level - 1].classList.add('active');
+        }
+
+        // Navigation entre étapes (niveau 3)
+        function showStep(step) {
+            document.querySelectorAll('.step-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            document.querySelectorAll('.step-dot').forEach(dot => {
+                dot.classList.remove('active');
+            });
+            
+            document.getElementById('step' + step).style.display = 'block';
+            document.querySelectorAll('.step-dot')[step - 1].classList.add('active');
+        }
+
+        // Toggle accordion
+        function toggleAccordion(header) {
+            header.classList.toggle('open');
+            const content = header.nextElementSibling;
+            content.classList.toggle('open');
+        }
+
+        // Parse number from input
+        function parseNumber(value) {
+            if (!value) return NaN;
+            // Remove spaces and replace comma with dot
+            value = value.replace(/\s/g, '').replace(',', '.').replace('€', '');
+            return parseFloat(value);
+        }
+
+        // Check if values are approximately equal
+        function isApproxEqual(a, b, tolerance = 1) {
+            return Math.abs(a - b) <= tolerance;
+        }
+
+        // Format number
+        function formatNumber(num) {
+            return num.toLocaleString('fr-BE', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        // Étape 1 - Vérification
+        function checkStep1() {
+            const htva = parseNumber(document.getElementById('step1-htva').value);
+            const tva = parseNumber(document.getElementById('step1-tva').value);
+            const tvac = parseNumber(document.getElementById('step1-tvac').value);
+            
+            let correct = 0;
+            let total = 3;
+            
+            const htvaField = document.getElementById('step1-htva');
+            const tvaField = document.getElementById('step1-tva');
+            const tvacField = document.getElementById('step1-tvac');
+            
+            if (isApproxEqual(htva, CORRECT_VALUES.step1.htva)) {
+                htvaField.classList.add('correct');
+                htvaField.classList.remove('incorrect');
+                correct++;
+            } else {
+                htvaField.classList.add('incorrect');
+                htvaField.classList.remove('correct');
+            }
+            
+            if (isApproxEqual(tva, CORRECT_VALUES.step1.tva)) {
+                tvaField.classList.add('correct');
+                tvaField.classList.remove('incorrect');
+                correct++;
+            } else {
+                tvaField.classList.add('incorrect');
+                tvaField.classList.remove('correct');
+            }
+            
+            if (isApproxEqual(tvac, CORRECT_VALUES.step1.tvac)) {
+                tvacField.classList.add('correct');
+                tvacField.classList.remove('incorrect');
+                correct++;
+            } else {
+                tvacField.classList.add('incorrect');
+                tvacField.classList.remove('correct');
+            }
+            
+            const feedback = document.getElementById('feedback-step1');
+            if (correct === total) {
+                feedback.className = 'feedback success';
+                feedback.innerHTML = '🎉 Excellent ! Toutes vos réponses sont correctes !';
+                document.getElementById('result-step1').style.display = 'block';
+                document.querySelectorAll('.step-dot')[0].classList.add('completed');
+            } else {
+                feedback.className = 'feedback error';
+                feedback.innerHTML = `⚠️ ${correct}/${total} réponses correctes. Vérifiez les champs en rouge.`;
+            }
+        }
+
+        function revealStep1() {
+            document.getElementById('step1-htva').value = formatNumber(CORRECT_VALUES.step1.htva);
+            document.getElementById('step1-tva').value = formatNumber(CORRECT_VALUES.step1.tva);
+            document.getElementById('step1-tvac').value = formatNumber(CORRECT_VALUES.step1.tvac);
+            document.getElementById('result-step1').style.display = 'block';
+            document.querySelectorAll('.step-dot')[0].classList.add('completed');
+            
+            ['step1-htva', 'step1-tva', 'step1-tvac'].forEach(id => {
+                document.getElementById(id).classList.add('correct');
+                document.getElementById(id).classList.remove('incorrect');
+            });
+        }
+
+        // Étape 2 - Vérification
+        function checkStep2() {
+            const valAcq = parseNumber(document.getElementById('step2-val-acq').value);
+            const amort2025 = parseNumber(document.getElementById('step2-amort-2025').value);
+            const amort2026 = parseNumber(document.getElementById('step2-amort-2026').value);
+            const amort2027 = parseNumber(document.getElementById('step2-amort-2027').value);
+            
+            let correct = 0;
+            let total = 4;
+            
+            const fields = [
+                { id: 'step2-val-acq', expected: CORRECT_VALUES.step2.valAcq },
+                { id: 'step2-amort-2025', expected: CORRECT_VALUES.step2.amort2025 },
+                { id: 'step2-amort-2026', expected: CORRECT_VALUES.step2.amort2026 },
+                { id: 'step2-amort-2027', expected: CORRECT_VALUES.step2.amort2027 }
+            ];
+            
+            fields.forEach(field => {
+                const el = document.getElementById(field.id);
+                const value = parseNumber(el.value);
+                if (isApproxEqual(value, field.expected, 1)) {
+                    el.classList.add('correct');
+                    el.classList.remove('incorrect');
+                    correct++;
+                } else {
+                    el.classList.add('incorrect');
+                    el.classList.remove('correct');
+                }
+            });
+            
+            const feedback = document.getElementById('feedback-step2');
+            if (correct === total) {
+                feedback.className = 'feedback success';
+                feedback.innerHTML = '🎉 Parfait ! Vous avez correctement calculé tous les amortissements !';
+                document.getElementById('result-step2').style.display = 'block';
+                document.querySelectorAll('.step-dot')[1].classList.add('completed');
+            } else {
+                feedback.className = 'feedback error';
+                feedback.innerHTML = `⚠️ ${correct}/${total} réponses correctes. Vérifiez les champs en rouge.`;
+            }
+        }
+
+        function revealStep2() {
+            document.getElementById('step2-val-acq').value = formatNumber(CORRECT_VALUES.step2.valAcq);
+            document.getElementById('step2-amort-2025').value = formatNumber(CORRECT_VALUES.step2.amort2025);
+            document.getElementById('step2-amort-2026').value = formatNumber(CORRECT_VALUES.step2.amort2026);
+            document.getElementById('step2-amort-2027').value = formatNumber(CORRECT_VALUES.step2.amort2027);
+            document.getElementById('result-step2').style.display = 'block';
+            document.querySelectorAll('.step-dot')[1].classList.add('completed');
+            
+            ['step2-val-acq', 'step2-amort-2025', 'step2-amort-2026', 'step2-amort-2027'].forEach(id => {
+                document.getElementById(id).classList.add('correct');
+                document.getElementById(id).classList.remove('incorrect');
+            });
+        }
+
+        // Étape 3 - Vérification
+        function checkStep3() {
+            const pv = parseNumber(document.getElementById('step3-pv').value);
+            const vcn = parseNumber(document.getElementById('step3-vcn').value);
+            
+            let correct = 0;
+            let total = 2;
+            
+            const pvField = document.getElementById('step3-pv');
+            const vcnField = document.getElementById('step3-vcn');
+            
+            if (isApproxEqual(pv, CORRECT_VALUES.step3.pv)) {
+                pvField.classList.add('correct');
+                pvField.classList.remove('incorrect');
+                correct++;
+            } else {
+                pvField.classList.add('incorrect');
+                pvField.classList.remove('correct');
+            }
+            
+            if (isApproxEqual(vcn, CORRECT_VALUES.step3.vcn, 1)) {
+                vcnField.classList.add('correct');
+                vcnField.classList.remove('incorrect');
+                correct++;
+            } else {
+                vcnField.classList.add('incorrect');
+                vcnField.classList.remove('correct');
+            }
+            
+            const feedback = document.getElementById('feedback-step3');
+            if (correct === total) {
+                feedback.className = 'feedback success';
+                feedback.innerHTML = '🎉 Bravo ! Vous avez bien compris le calcul du résultat !';
+                document.getElementById('result-step3').style.display = 'block';
+                document.querySelectorAll('.step-dot')[2].classList.add('completed');
+            } else {
+                feedback.className = 'feedback error';
+                feedback.innerHTML = `⚠️ ${correct}/${total} réponses correctes. Vérifiez les champs en rouge.`;
+            }
+        }
+
+        function revealStep3() {
+            document.getElementById('step3-pv').value = formatNumber(CORRECT_VALUES.step3.pv);
+            document.getElementById('step3-vcn').value = formatNumber(CORRECT_VALUES.step3.vcn);
+            document.getElementById('result-step3').style.display = 'block';
+            document.querySelectorAll('.step-dot')[2].classList.add('completed');
+            
+            ['step3-pv', 'step3-vcn'].forEach(id => {
+                document.getElementById(id).classList.add('correct');
+                document.getElementById(id).classList.remove('incorrect');
+            });
+        }
+
+        // Journal - Calcul des totaux
+        function calculateTotals() {
+            let totalDebit = 0;
+            let totalCredit = 0;
+            
+            for (let i = 1; i <= 5; i++) {
+                const debit = parseNumber(document.getElementById('j-debit' + i).value);
+                const credit = parseNumber(document.getElementById('j-credit' + i).value);
+                
+                if (!isNaN(debit)) totalDebit += debit;
+                if (!isNaN(credit)) totalCredit += credit;
+            }
+            
+            document.getElementById('total-debit').textContent = formatNumber(totalDebit);
+            document.getElementById('total-credit').textContent = formatNumber(totalCredit);
+        }
+
+        // Journal - Vérification
+        function checkJournal() {
+            calculateTotals();
+            
+            const totalDebit = parseNumber(document.getElementById('total-debit').textContent);
+            const totalCredit = parseNumber(document.getElementById('total-credit').textContent);
+            
+            const feedback = document.getElementById('feedback-journal');
+            
+            if (isApproxEqual(totalDebit, totalCredit, 1) && 
+                isApproxEqual(totalDebit, CORRECT_VALUES.journal.totalDebit, 1)) {
+                feedback.className = 'feedback success';
+                feedback.innerHTML = '🎉 Félicitations ! Votre écriture est équilibrée et correcte ! Consultez la correction pour vérifier les détails.';
+                document.getElementById('correction-journal').style.display = 'block';
+            } else if (isApproxEqual(totalDebit, totalCredit, 1)) {
+                feedback.className = 'feedback error';
+                feedback.innerHTML = '⚠️ Votre écriture est équilibrée mais les montants ne sont pas corrects. Vérifiez vos calculs.';
+            } else {
+                feedback.className = 'feedback error';
+                feedback.innerHTML = '⚠️ Attention ! Les débits (' + formatNumber(totalDebit) + ' €) ne sont pas égaux aux crédits (' + formatNumber(totalCredit) + ' €).';
+            }
+        }
+
+        function revealJournal() {
+            // Remplir les champs avec la correction - HYPOTHÈSE 2 (MOINS-VALUE)
+            document.getElementById('j-compte1').value = '4000';
+            document.getElementById('j-libelle1').value = 'Client';
+            document.getElementById('j-debit1').value = '302500';
+            document.getElementById('j-credit1').value = '';
+            
+            document.getElementById('j-compte2').value = '4510';
+            document.getElementById('j-libelle2').value = 'TVA à payer';
+            document.getElementById('j-debit2').value = '';
+            document.getElementById('j-credit2').value = '52500';
+            
+            document.getElementById('j-compte3').value = '2410';
+            document.getElementById('j-libelle3').value = 'Camion';
+            document.getElementById('j-debit3').value = '';
+            document.getElementById('j-credit3').value = '500000';
+            
+            document.getElementById('j-compte4').value = '2419';
+            document.getElementById('j-libelle4').value = 'Amort. actés s/camion';
+            document.getElementById('j-debit4').value = '141917.81';
+            document.getElementById('j-credit4').value = '';
+            
+            // MOINS-VALUE au débit (compte 6630)
+            document.getElementById('j-compte5').value = '6630';
+            document.getElementById('j-libelle5').value = 'Moins-value de réalisation';
+            document.getElementById('j-debit5').value = '108082.19';
+            document.getElementById('j-credit5').value = '';
+            
+            calculateTotals();
+            document.getElementById('correction-journal').style.display = 'block';
+        }
+
+        // Event listeners for input fields
+        document.querySelectorAll('.journal-table input').forEach(input => {
+            input.addEventListener('input', calculateTotals);
+        });
+    </script>
+</body>
+</html>
